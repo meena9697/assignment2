@@ -1,0 +1,210 @@
+<html>
+    <head>
+        <meta charset = "UTF-8" />
+        <link
+        rel="stylesheet"
+        href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" 
+        crossorigin="anonymous"
+        />
+    </head>
+<body>
+    <header>
+        <h1> Task Manager</h1>
+    </header>
+<form>
+<!-- <div class="input-container"></div> -->
+    <input type= "text" placeholder=" Title..." class="task-input"/>
+<!-- <input type="submit" value=" Add" class="task-submit"/> -->
+    <button class="task-button" type="submit">
+    <i class=" fas fa-plus-square"></i>
+    </button>
+</form>
+<div class="task-container">
+    <ul class="task-list"></ul>
+        <!-- <div class="task"> -->
+    <!-- <li> Task 01 </li> -->
+    <!-- <li> Task 02</li> -->
+        <!-- </div> -->
+</div>
+<div>
+<button class="remove-button"> REMOVE ALL</button>
+</div>
+<script>
+//Selectors
+const taskInput= document.querySelector(".task-input");
+const taskButton= document.querySelector(".task-button");
+const taskList = document.querySelector(".task-list");
+const removeButton= document.querySelector(".remove-button");
+
+//Event Listeners
+taskButton.addEventListener("click", addTask);
+taskList.addEventListener('click', deleteCheck);
+removeButton.addEventListener('click', removeAll);
+
+//Functions
+function addTask(event) {
+    //Prevent form from submitting
+
+    event.preventDefault();
+    //Task DIV
+    const taskDiv = document.createElement("div");
+    taskDiv.classList.add("task");
+    //Create LI
+    const newTask = document.createElement('li');
+    newTask.innerText = taskInput.value;
+    newTask.classList.add('task-item');
+    taskDiv.appendChild(newTask);
+
+    //completed button
+    const completedButton = document.createElement('button');
+    completedButton.innerHTML = '<i class="fas fa-check"></i>';
+    completedButton.classList.add("completed-btn");
+    taskDiv.appendChild(completedButton);
+
+
+    //trash button
+    const trashButton = document.createElement('button');
+    trashButton.innerHTML = '<i class="fa fa-times"></i>';
+    trashButton.classList.add("trash-btn");
+    taskDiv.appendChild(trashButton);
+
+    taskList.appendChild(taskDiv);
+    //clear value
+    taskInput.value="";
+}
+
+function deleteCheck(e){
+
+    const item = e.target;
+
+    //delete task
+    if (item.classList[0] === "trash-btn"){
+        const task= item.parentElement;
+        task.remove();
+    }
+
+    //check mark
+
+    if (item.classList[0] === "completed-btn"){
+        const task= item.parentElement;
+        task.classList.toggle("completed");
+    }
+
+function removeAll(event){
+    
+    
+}
+}
+</script>
+</body>
+<style>
+
+*{
+    margin: 0;
+    padding: 1;
+    box-sizing: border-box;
+}
+
+body{
+    
+    min-height: 100vh;
+    background-color: gray;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+header{
+    font-size: 1.5 rem;
+}
+
+header, form{
+
+    margin: auto;
+    min-height: 10vh;
+    max-width: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: black;
+}
+
+input[type=text]{
+    width: 40vw;
+}
+
+form input, form button{
+    padding: 0.5rem;
+    font-size: 2 rem;
+    border: none;
+    background: white;
+
+}
+
+form button{
+     color: orangered;
+
+}
+
+.task-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.task-list{
+    min-width: 50vw;
+    min-height: 50vh;
+    list-style: none;
+}
+
+.task{
+    margin: 0.3rem;
+    background: white;
+    color: black;
+    font-size: 1.5 rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task li{
+    flex:content;
+}
+
+.trash-btn, .completed-btn{
+    
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+
+.fa-times, .fa-check, .remove-button{
+    pointer-events: none;
+}
+
+.completed{
+text-decoration: line-through;
+color: white;
+background-color: green;
+}
+
+.remove-button {
+    background-color: black;
+    color:white;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 8vw;
+    height: 8vh;
+    position: relative;
+    left: 45%
+
+}
+
+
+</style>
+</html>
+
