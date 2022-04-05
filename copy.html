@@ -27,7 +27,7 @@
         <!-- </div> -->
 </div>
 <div>
-<button class="remove-button"> REMOVE ALL</button>
+<button class="remove-button">REMOVE ALL</button>
 </div>
 <script>
 //Selectors
@@ -40,9 +40,9 @@ const removeButton= document.querySelector(".remove-button");
 taskButton.addEventListener("click", addTask);
 taskList.addEventListener('click', deleteCheck);
 removeButton.addEventListener('click', removeAll);
-
 //Functions
-function addTask(event) {
+
+function addTask(event){
     //Prevent form from submitting
 
     event.preventDefault();
@@ -89,12 +89,20 @@ function deleteCheck(e){
         const task= item.parentElement;
         task.classList.toggle("completed");
     }
+}
 
-function removeAll(event){
-    
-    
+function removeAll(e){
+    // console.log("Removing All")
+    // console.log(taskList)
+
+    const tasks = document.querySelectorAll('.task');
+
+    tasks.forEach(task => {
+        task.remove();
+    });
+
 }
-}
+
 </script>
 </body>
 <style>
@@ -182,14 +190,13 @@ form button{
 }
 
 
-.fa-times, .fa-check, .remove-button{
+.fa-times, .fa-check{
     pointer-events: none;
 }
 
 .completed{
 text-decoration: line-through;
 color: white;
-
 background-color: green;
 }
 
@@ -201,7 +208,8 @@ background-color: green;
     width: 8vw;
     height: 8vh;
     position: relative;
-    left: 45%
+    left: 45%;
+    cursor: pointer;
 
 }
 
